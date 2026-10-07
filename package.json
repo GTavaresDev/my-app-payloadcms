@@ -9,7 +9,13 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@payloadcms/db-postgres": "^3.90.2",
+    "@payloadcms/next": "^3.90.2",
+    "@payloadcms/richtext-lexical": "^3.90.2",
+    "graphql": "^16.14.2",
+    "lucide-react": "^1.52.0",
     "next": "16.4.0",
+    "payload": "^3.90.2",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
