@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import React from 'react'
 import './globals.css'
-import { Header } from './Components/Header'
-import { Footer } from './Components/Footer'
+import { Header } from './_components/Header'
+import { Footer } from './_components/Footer'
 import { getMedia } from '@/lib/payload'
 
 export const metadata: Metadata = {

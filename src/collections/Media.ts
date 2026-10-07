@@ -11,6 +11,16 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'folder',
+      label: "Pasta",
+      type: 'relationship',
+      relationTo: 'folders',
+      hasMany: false,
+      admin: {
+        position: "sidebar"
+      }
+    }
   ],
   upload: true,
 }

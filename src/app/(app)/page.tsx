@@ -1,5 +1,5 @@
 import React from 'react'
-import { Hero } from './Components/Hero'
+import { Hero } from './_components/Hero'
 import { getMedia } from '@/lib/payload'
 
 export default async function HomePage() {
