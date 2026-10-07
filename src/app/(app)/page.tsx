@@ -4,6 +4,8 @@ import NotPhotos from './_components/NotPhotos'
 import PhotosHeader from './_components/PhotosHeader'
 import PhotosGrid from './_components/PhotosGrid'
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
   const photos = await getMedia('fotos-do-clube')
 

@@ -3,6 +3,8 @@ import NotNews from "./_components/NotNews";
 import NewsHeader from "./_components/NewsHeader";
 import NewsGrid from "./_components/NewsGrid";
 
+export const dynamic = 'force-dynamic'
+
 export default async function NoticiasPage() {
   const news = await getNews();
 
