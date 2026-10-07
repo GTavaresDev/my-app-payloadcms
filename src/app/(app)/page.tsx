@@ -1,14 +1,22 @@
 import React from 'react'
-import { Hero } from './_components/Hero'
 import { getMedia } from '@/lib/payload'
+import NotPhotos from './_components/NotPhotos'
+import PhotosHeader from './_components/PhotosHeader'
+import PhotosGrid from './_components/PhotosGrid'
 
 export default async function HomePage() {
-  const media = await getMedia()
-  const logo = media?.[0]
+  const photos = await getMedia('fotos-do-clube')
+
+  if (!photos || photos.length === 0) {
+    return <NotPhotos />
+  }
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-80px)] justify-center items-center">
-      <Hero logoUrl={logo?.url} logoAlt={logo?.alt} />
+    <div className="min-h-[calc(100vh-80px)] bg-zinc-50/60 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <PhotosHeader />
+        <PhotosGrid photos={photos} />
+      </div>
     </div>
   )
 }

@@ -19,7 +19,9 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const media = await getMedia();
-  const logo = media?.[0]
+  const logo = media?.find(
+    (item) => item.alt?.toLowerCase() === 'logo-do-flamengo'
+  ) || media?.[0];
   return (
     <html lang="pt-BR" className="scroll-smooth">
       <body className="min-h-screen bg-white text-zinc-900 flex flex-col antialiased selection:bg-red-600 selection:text-white">

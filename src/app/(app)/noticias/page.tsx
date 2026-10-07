@@ -1,9 +1,23 @@
-import React from 'react'
+import { getNews } from "@/lib/payload";
+import NotNews from "./_components/NotNews";
+import NewsHeader from "./_components/NewsHeader";
+import NewsGrid from "./_components/NewsGrid";
 
-export default function NoticiasPage() {
+export default async function NoticiasPage() {
+  const news = await getNews();
+
+  if (!news || news.length === 0) {
+    return <NotNews />;
+  }
+
   return (
-    <div className="min-h-[60vh] flex items-center justify-center bg-white">
-      <h1 className="text-2xl font-bold text-zinc-800">Notícias</h1>
+    <div className="min-h-[70vh] bg-zinc-50/50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        <NewsHeader />
+        <NewsGrid news={news} />
+      </div>
     </div>
-  )
+  );
 }
+
+
