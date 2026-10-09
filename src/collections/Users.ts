@@ -4,10 +4,59 @@ export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
     useAsTitle: 'email',
+    defaultColumns: ['email', 'company', 'roles'],
   },
   auth: true,
+  access: {
+    // Super-admin pode listar todos os usuários, usuário comum só vê o próprio
+    read: ({ req: { user } }) => {
+      if (!user) return false
+      if (user.roles?.includes('super-admin')) return true
+      return {
+        id: {
+          equals: user.id,
+        },
+      }
+    },
+    update: ({ req: { user } }) => {
+      if (!user) return false
+      if (user.roles?.includes('super-admin')) return true
+      return {
+        id: {
+          equals: user.id,
+        },
+      }
+    },
+    delete: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
+    create: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
+  },
   fields: [
-    // Email added by default
-    // Add more fields as needed
+    {
+      name: 'roles',
+      label: 'Permissões',
+      type: 'select',
+      hasMany: true,
+      defaultValue: ['user'],
+      options: [
+        { label: 'Super Admin', value: 'super-admin' },
+        { label: 'Company Admin', value: 'company-admin' },
+        { label: 'Usuário', value: 'user' },
+      ],
+      access: {
+        update: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
+      },
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'company',
+      label: 'Empresa',
+      type: 'relationship',
+      relationTo: 'companies',
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
 }
