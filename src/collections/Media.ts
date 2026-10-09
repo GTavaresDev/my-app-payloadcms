@@ -99,5 +99,7 @@ export const Media: CollectionConfig = {
       },
     },
   ],
-  upload: true,
+  upload: {
+    staticDir: 'public/media',
+  },
 }

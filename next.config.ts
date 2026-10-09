@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  outputFileTracingIncludes: {
+    '/**': ['./public/media/**/*', './media/**/*'],
+  },
   experimental: {
     agentFeedback: true,
   },
@@ -14,6 +17,14 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/media/file/:path*',
+        destination: '/media/:path*',
+      },
+    ];
   },
   async redirects() {
     return [
