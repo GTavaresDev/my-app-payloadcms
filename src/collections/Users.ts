@@ -9,7 +9,7 @@ export const Users: CollectionConfig = {
   auth: true,
   access: {
     // Super-admin pode listar todos os usuários, usuário comum só vê o próprio
-    read: ({ req: { user } }) => {
+    read: ({ req: { user } }: { req: { user?: any } }) => {
       if (!user) return false
       if (user.roles?.includes('super-admin')) return true
       return {
@@ -18,7 +18,7 @@ export const Users: CollectionConfig = {
         },
       }
     },
-    update: ({ req: { user } }) => {
+    update: ({ req: { user } }: { req: { user?: any } }) => {
       if (!user) return false
       if (user.roles?.includes('super-admin')) return true
       return {
@@ -27,8 +27,8 @@ export const Users: CollectionConfig = {
         },
       }
     },
-    delete: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
-    create: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
+    delete: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
+    create: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
   },
   fields: [
     {
@@ -43,7 +43,7 @@ export const Users: CollectionConfig = {
         { label: 'Usuário', value: 'user' },
       ],
       access: {
-        update: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
+        update: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
       },
       admin: {
         position: 'sidebar',

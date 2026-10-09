@@ -8,9 +8,9 @@ export const Companies: CollectionConfig = {
   },
   access: {
     read: () => true,
-    create: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
-    update: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
-    delete: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
+    create: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
+    update: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
+    delete: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
   },
   fields: [
     {

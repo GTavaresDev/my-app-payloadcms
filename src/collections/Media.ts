@@ -1,4 +1,4 @@
-import type { Access, CollectionConfig } from 'payload'
+import type { CollectionConfig } from 'payload'
 
 const getCompanyId = (user: any) => {
   if (!user?.company) return null
@@ -7,7 +7,7 @@ const getCompanyId = (user: any) => {
 
 const isSuperAdmin = (user: any) => Boolean(user?.roles?.includes('super-admin'))
 
-const canAccessByCompany: Access = ({ req: { user } }) => {
+const canAccessByCompany = ({ req: { user } }: { req: { user?: any } }) => {
   // Se não estiver autenticado (ex: requisição pública do blog/site), permite leitura
   if (!user) return true
 
@@ -29,7 +29,7 @@ export const Media: CollectionConfig = {
   slug: 'media',
   access: {
     read: canAccessByCompany,
-    update: ({ req: { user } }) => {
+    update: ({ req: { user } }: { req: { user?: any } }) => {
       if (!user) return false
       if (isSuperAdmin(user)) return true
       const companyId = getCompanyId(user)
@@ -40,7 +40,7 @@ export const Media: CollectionConfig = {
         },
       }
     },
-    delete: ({ req: { user } }) => {
+    delete: ({ req: { user } }: { req: { user?: any } }) => {
       if (!user) return false
       if (isSuperAdmin(user)) return true
       const companyId = getCompanyId(user)
@@ -51,11 +51,11 @@ export const Media: CollectionConfig = {
         },
       }
     },
-    create: ({ req: { user } }) => Boolean(user?.company || isSuperAdmin(user)),
+    create: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.company || isSuperAdmin(user)),
   },
   hooks: {
     beforeChange: [
-      ({ req, data, operation }) => {
+      ({ req, data, operation }: any) => {
         // Ao cadastrar nova mídia, vincula automaticamente à empresa do usuário logado
         if (operation === 'create' && req.user) {
           const companyId = getCompanyId(req.user)
@@ -85,7 +85,7 @@ export const Media: CollectionConfig = {
         position: 'sidebar',
       },
       access: {
-        update: ({ req: { user } }) => isSuperAdmin(user),
+        update: ({ req: { user } }: { req: { user?: any } }) => isSuperAdmin(user),
       },
     },
     {
