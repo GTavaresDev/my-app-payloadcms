@@ -2,9 +2,14 @@ import type { CollectionConfig } from 'payload'
 
 export const Folders: CollectionConfig = {
     slug: 'folders',
+    labels: {
+        singular: 'Pasta',
+        plural: 'Pastas',
+    },
     admin: {
         useAsTitle: 'name',
-        defaultColumns: ['name', 'slug']
+        defaultColumns: ['name', 'slug'],
+        group: 'Coleções',
     },
     access: {
         read: () => true,

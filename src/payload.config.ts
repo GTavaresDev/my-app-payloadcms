@@ -4,6 +4,7 @@ import path from "path";
 import { buildConfig } from "payload";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
+import { pt } from "@payloadcms/translations/languages/pt";
 
 import { Users } from "./collections/Users";
 import { Companies } from "./collections/Companies";
@@ -33,5 +34,9 @@ export default buildConfig({
     },
   }),
   sharp,
+  i18n: {
+    supportedLanguages: { pt },
+    fallbackLanguage: 'pt',
+  },
   plugins: [],
 });

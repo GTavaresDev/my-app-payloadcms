@@ -27,6 +27,13 @@ const canAccessByCompany = ({ req: { user } }: { req: { user?: any } }) => {
 
 export const Media: CollectionConfig = {
   slug: 'media',
+  labels: {
+    singular: 'Mídia',
+    plural: 'Mídias',
+  },
+  admin: {
+    group: 'Coleções',
+  },
   access: {
     read: canAccessByCompany,
     update: ({ req: { user } }: { req: { user?: any } }) => {
@@ -73,6 +80,7 @@ export const Media: CollectionConfig = {
   fields: [
     {
       name: 'alt',
+      label: 'Texto Alternativo',
       type: 'text',
       required: true,
     },

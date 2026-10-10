@@ -27,6 +27,13 @@ const canAccessByCompany = ({ req: { user } }: { req: { user?: any } }) => {
 
 export const News: CollectionConfig = {
   slug: 'news',
+  labels: {
+    singular: 'Notícia',
+    plural: 'Notícias',
+  },
+  admin: {
+    group: 'Coleções',
+  },
   access: {
     read: canAccessByCompany,
     update: ({ req: { user } }: { req: { user?: any } }) => {
