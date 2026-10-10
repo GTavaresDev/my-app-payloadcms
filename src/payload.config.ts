@@ -21,6 +21,15 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    meta: {
+      titleSuffix: '— Sacflow CMS',
+    },
+    components: {
+      graphics: {
+        Logo: '/components/Logo#Logo',
+        Icon: '/components/Icon#Icon',
+      },
+    },
   },
   collections: [Users, Companies, Media, Folders, News],
   editor: lexicalEditor(),
