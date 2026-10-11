@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" width="240" height="48" fill="none">
+  <defs>
+    <linearGradient id="rasGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <filter id="rasShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0284c7" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Logo Mark -->
+  <rect x="4" y="4" width="40" height="40" rx="10" fill="url(#rasGrad)" filter="url(#rasShadow)"/>
+  
+  <!-- Modern Truck & GPS Wave Path -->
+  <path d="M14 28V20C14 18.8954 14.8954 18 16 18H26C27.1046 18 28 18.8954 28 20V28H14Z" fill="white" opacity="0.95"/>
+  <path d="M28 22H31.5C32.1 22 32.6 22.4 32.9 22.9L34.5 25.5C34.8 26 35 26.5 35 27V28H28V22Z" fill="white" opacity="0.95"/>
+  <circle cx="18" cy="29" r="2.5" fill="#0284c7" stroke="white" stroke-width="2"/>
+  <circle cx="31" cy="29" r="2.5" fill="#0284c7" stroke="white" stroke-width="2"/>
+  <path d="M19 14C22.3137 14 25 16.6863 25 20" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- Brand Typography -->
+  <text x="56" y="27" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#0f172a" letter-spacing="-0.5">Rastrear</text>
+  <rect x="150" y="16" width="70" height="16" rx="4" fill="#f0f9ff"/>
+  <text x="155" y="27.5" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="700" fill="#0284c7" letter-spacing="0.5">LOGÍSTICA</text>
+  <text x="57" y="39" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="600" fill="#64748b" letter-spacing="0.8">GESTÃO DE FROTAS</text>
+</svg>

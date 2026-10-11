@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" width="240" height="48" fill="none">
+  <defs>
+    <linearGradient id="locGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#3730a3"/>
+    </linearGradient>
+    <filter id="locShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#4f46e5" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Logo Mark -->
+  <rect x="4" y="4" width="40" height="40" rx="10" fill="url(#locGrad)" filter="url(#locShadow)"/>
+  
+  <!-- Clean Chat Message Bubble Mark -->
+  <path d="M15 17C15 15.3431 16.3431 14 18 14H30C31.6569 14 33 15.3431 33 17V26C33 27.6569 31.6569 29 30 29H22L17.5 32.5V29H18C16.3431 29 15 27.6569 15 26V17Z" fill="white" opacity="0.95"/>
+  <rect x="19" y="19" width="10" height="2" rx="1" fill="#4f46e5"/>
+  <rect x="19" y="24" width="6" height="2" rx="1" fill="#4f46e5"/>
+
+  <!-- Brand Typography -->
+  <text x="56" y="27" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#0f172a" letter-spacing="-0.5">Localize</text>
+  <rect x="146" y="16" width="44" height="16" rx="4" fill="#f1f5f9"/>
+  <text x="151" y="27.5" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#4f46e5" letter-spacing="0.5">AI CX</text>
+  <text x="57" y="39" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="600" fill="#64748b" letter-spacing="0.8">ATENDIMENTO INTELIGENTE</text>
+</svg>
