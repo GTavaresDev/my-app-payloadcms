@@ -1,3 +1,4 @@
+import { getPayloadUrl, resolveMediaUrl } from '../../../localize/src/lib/cms-url'
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { tenantRead, tenantUpdate, superAdmin } from '../access/tenant'
@@ -350,4 +351,16 @@ test('company creation generates its token and updates preserve it', async () =>
   assert.match(data!.token, /^cmp_[a-f0-9]{64}$/)
   const updated = await hook({ data: { token: 'forged' }, originalDoc: data, operation: 'update' } as Parameters<CollectionBeforeValidateHook>[0])
   assert.equal(updated!.token, data!.token)
+})
+
+
+test('production CMS configuration and media URLs avoid local fallbacks', () => {
+  assert.throws(() => getPayloadUrl({ NODE_ENV: 'production' }), /PAYLOAD_URL/)
+  assert.equal(getPayloadUrl({ NODE_ENV: 'development' }), 'http://localhost:3000')
+  assert.equal(getPayloadUrl({ PAYLOAD_URL: ' https://cms.example.com/ ' }), 'https://cms.example.com')
+  assert.equal(resolveMediaUrl('http://localhost:3000/media/logo.svg', 'https://cms.example.com'), 'https://cms.example.com/media/logo.svg')
+  assert.equal(resolveMediaUrl('/media/logo.svg', 'https://cms.example.com'), 'https://cms.example.com/media/logo.svg')
+  assert.equal(resolveMediaUrl('https://cdn.example.com/logo.svg', 'https://cms.example.com'), 'https://cdn.example.com/logo.svg')
+  assert.equal(resolveMediaUrl('javascript:alert(1)', 'https://cms.example.com'), undefined)
+  assert.equal(resolveMediaUrl('http://[invalid', 'https://cms.example.com'), undefined)
 })
