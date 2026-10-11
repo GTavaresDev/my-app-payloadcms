@@ -22,7 +22,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     meta: {
-      titleSuffix: '— Sacflow CMS',
+      titleSuffix: '— GTech CMS',
     },
     components: {
       graphics: {
