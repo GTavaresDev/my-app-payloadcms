@@ -155,6 +155,10 @@ export interface User {
  */
 export interface Company {
   id: number;
+  /**
+   * Gerado automaticamente. Configure como COMPANY_TOKEN no servidor do site. Não compartilhe.
+   */
+  token?: string | null;
   name: string;
   slug: string;
   updatedAt: string;
@@ -567,6 +571,7 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "companies_select".
  */
 export interface CompaniesSelect<T extends boolean = true> {
+  token?: T;
   name?: T;
   slug?: T;
   updatedAt?: T;

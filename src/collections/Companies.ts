@@ -1,5 +1,7 @@
 import { companyID, isSuperAdmin } from '../access/tenant'
 import type { CollectionConfig } from 'payload'
+import { superAdminField } from '../access/tenant'
+import { createCompanyToken } from '../access/company-token'
 
 export const Companies: CollectionConfig = {
   slug: 'companies',
@@ -11,7 +13,7 @@ export const Companies: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'slug'],
     group: 'Opções',
-    hidden: ({ user }: { user?: any }) => !user?.roles?.includes('super-admin'),
+    hidden: ({ user }) => !isSuperAdmin(user),
   },
   access: {
     read: ({ req: { user } }) => {
@@ -19,11 +21,29 @@ export const Companies: CollectionConfig = {
       const id = companyID(user)
       return id ? { id: { equals: id } } : false
     },
-    create: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
-    update: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
-    delete: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
+    create: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
+    update: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
+    delete: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
+  },
+  hooks: {
+    beforeValidate: [({ data, originalDoc, operation }) => {
+      if (data) data.token = operation === 'create' ? createCompanyToken() : originalDoc?.token || createCompanyToken()
+      return data
+    }],
   },
   fields: [
+    {
+      name: 'token',
+      label: 'Token de acesso do site',
+      type: 'text',
+      unique: true,
+      access: { read: superAdminField, create: () => false, update: () => false },
+      admin: {
+        readOnly: true,
+        description: 'Gerado automaticamente. Configure como COMPANY_TOKEN no servidor do site. Não compartilhe.',
+        condition: (_data, _siblings, { user }) => isSuperAdmin(user),
+      },
+    },
     {
       name: 'name',
       label: 'Nome da Empresa',

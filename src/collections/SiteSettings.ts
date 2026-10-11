@@ -5,9 +5,9 @@ import {
   isSuperAdmin,
   superAdmin,
   superAdminField,
-  tenantRead,
   tenantUpdate,
 } from '../access/tenant'
+import { siteContentRead } from '../access/company-token'
 
 const immutable = { create: superAdminField, update: superAdminField }
 export const SiteSettings: CollectionConfig = {
@@ -22,7 +22,7 @@ export const SiteSettings: CollectionConfig = {
     },
   },
   access: {
-    read: tenantRead,
+    read: siteContentRead,
     update: tenantUpdate,
     create: superAdmin,
     delete: superAdmin,

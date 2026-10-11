@@ -2,10 +2,11 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { tenantRead, tenantUpdate, superAdmin } from '../access/tenant'
 import { SiteSettings } from '../collections/SiteSettings'
+import { createCompanyToken, siteContentRead } from '../access/company-token'
+import { Companies } from '../collections/Companies'
 import { Users } from '../collections/Users'
 import { seedPages } from '../scripts/seed-pages'
 import { sitePages } from '../companys/site-pages'
-import sections from '../companys/home-sections'
 import type {
   Payload,
   PayloadRequest,
@@ -163,6 +164,8 @@ test('seed three pages preserving all content and edits', async () => {
 
 test('each route fetches one page and returns only its components', async () => {
   const original = globalThis.fetch
+  const previousToken = process.env.COMPANY_TOKEN
+  process.env.COMPANY_TOKEN = 'cmp_' + 'a'.repeat(64)
   try {
     for (const [company, slug, fetchPage, expected] of [
       ['localize', 'home', localizeHome, 7],
@@ -179,8 +182,9 @@ test('each route fetches one page and returns only its components', async () => 
         assert.equal(url.pathname, '/api/site-settings')
         assert.equal(
           url.searchParams.get('where[company.slug][equals]'),
-          company,
+          null,
         )
+        assert.equal(new Headers(init?.headers).get('authorization'), `Bearer ${process.env.COMPANY_TOKEN}`)
         assert.equal(url.searchParams.get('where[pageSlug][equals]'), slug)
         assert.equal(url.searchParams.get('limit'), '1')
         assert.equal(url.searchParams.get('depth'), '1')
@@ -227,6 +231,8 @@ test('each route fetches one page and returns only its components', async () => 
     assert.deepEqual(await localizeHome(), {})
   } finally {
     globalThis.fetch = original
+    if (previousToken === undefined) delete process.env.COMPANY_TOKEN
+    else process.env.COMPANY_TOKEN = previousToken
   }
 })
 
@@ -314,4 +320,34 @@ test('tenant users can create and manage users only in their company', async () 
     roles.admin!.condition!({}, {}, { user: adminReq.user } as never),
     true,
   )
+})
+
+
+test('company tokens are random and constrain anonymous reads', async () => {
+  const token = createCompanyToken()
+  assert.match(token, /^cmp_[a-f0-9]{64}$/)
+  assert.notEqual(token, createCompanyToken())
+  for (const authorization of ['', 'Bearer invalid']) {
+    assert.equal(await siteContentRead({ req: { headers: new Headers({ authorization }) } as PayloadRequest }), false)
+  }
+  const request = {
+    headers: new Headers({ authorization: `Bearer ${token}` }),
+    payload: { find: async (args: { where: unknown; overrideAccess: boolean }) => {
+      assert.deepEqual(args.where, { token: { equals: token } })
+      assert.equal(args.overrideAccess, true)
+      return { docs: [{ id: 4 }] }
+    } },
+  } as unknown as PayloadRequest
+  assert.deepEqual(await siteContentRead({ req: request }), { company: { equals: 4 } })
+  request.payload.find = (async () => ({ docs: [] })) as unknown as Payload['find']
+  assert.equal(await siteContentRead({ req: request }), false)
+})
+
+
+test('company creation generates its token and updates preserve it', async () => {
+  const hook = Companies.hooks!.beforeValidate![0] as CollectionBeforeValidateHook
+  const data = await hook({ data: { name: 'Test', slug: 'test', token: 'forged' }, operation: 'create' } as Parameters<CollectionBeforeValidateHook>[0])
+  assert.match(data!.token, /^cmp_[a-f0-9]{64}$/)
+  const updated = await hook({ data: { token: 'forged' }, originalDoc: data, operation: 'update' } as Parameters<CollectionBeforeValidateHook>[0])
+  assert.equal(updated!.token, data!.token)
 })
