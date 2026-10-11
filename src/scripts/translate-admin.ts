@@ -1,5 +1,5 @@
 import pg from 'pg'
-import sections from '../content/home-sections.json'
+import sections from '../companys/home-sections'
 
 // Change only the original seeded names; preserve custom names and site content.
 const db = new pg.Client({ connectionString: process.env.DATABASE_URL })

@@ -47,7 +47,7 @@ grupos, sem criar, reordenar ou mover componentes entre páginas.
   depoimento e perguntas frequentes.
 - Rastrear → Logística (`/logistica`): torre de controle e galeria operacional.
 
-O mapeamento de páginas, rotas e componentes fica em `src/content/site-pages.ts`.
+O mapeamento de páginas, rotas e componentes fica em `src/companys/`.
 Novas páginas ou empresas devem ter seus componentes mapeados pelo desenvolvedor.
 
 ### Migração do banco existente
@@ -69,7 +69,7 @@ Esta transição pressupõe o banco existente com as coleções anteriores.
 `seed:pages` copia os 13 componentes existentes para as três páginas,
 preservando textos, referências de mídia, valores vazios e nulos. Reexecutar não
 sobrescreve edições feitas nas páginas. Para uma instalação sem conteúdo legado,
-usam-se os textos iniciais e as imagens de `src/content/assets`. `seed:home`
+usam-se os textos iniciais e as imagens de `src/companys/assets`. `seed:home`
 permanece como alias do mesmo importador. Não são criados usuários.
 
 Os documentos antigos de `site-sections` permanecem ocultos e acessíveis apenas

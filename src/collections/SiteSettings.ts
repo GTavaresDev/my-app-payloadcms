@@ -1,6 +1,6 @@
 import { APIError, type CollectionConfig, type Field } from 'payload'
-import sections from '../content/home-sections.json'
-import { sitePages } from '../content/site-pages'
+import sections from '../companys/home-sections'
+import { sitePages } from '../companys/site-pages'
 import {
   isSuperAdmin,
   superAdmin,
@@ -16,7 +16,7 @@ export const SiteSettings: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'route', 'company'],
-    group: 'Coleções',
+    group: 'Opções',
     components: {
       beforeListTable: ['/components/RouteFolders#RouteFolders'],
     },

@@ -32,7 +32,7 @@ export const Media: CollectionConfig = {
     plural: 'Mídias',
   },
   admin: {
-    group: 'Coleções',
+    group: 'Opções',
     hidden: true,
   },
   access: {
@@ -95,17 +95,6 @@ export const Media: CollectionConfig = {
       },
       access: {
         update: ({ req: { user } }: { req: { user?: any } }) => isSuperAdmin(user),
-      },
-    },
-    {
-      name: 'folder',
-      label: 'Pasta',
-      type: 'relationship',
-      relationTo: 'folders',
-      hasMany: false,
-      admin: {
-        hidden: true,
-        position: 'sidebar',
       },
     },
   ],

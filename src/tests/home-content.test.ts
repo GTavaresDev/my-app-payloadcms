@@ -2,11 +2,10 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { tenantRead, tenantUpdate, superAdmin } from '../access/tenant'
 import { SiteSettings } from '../collections/SiteSettings'
-import { SiteSections } from '../collections/SiteSections'
 import { Users } from '../collections/Users'
 import { seedPages } from '../scripts/seed-pages'
-import { sitePages } from '../content/site-pages'
-import sections from '../content/home-sections.json'
+import { sitePages } from '../companys/site-pages'
+import sections from '../companys/home-sections'
 import type {
   Payload,
   PayloadRequest,
@@ -34,8 +33,6 @@ test('page access isolates companies and protects page structure', async () => {
   assert.equal(await tenantUpdate({ req: req(null) }), false)
   assert.equal(SiteSettings.access?.create, superAdmin)
   assert.equal(SiteSettings.access?.delete, superAdmin)
-  assert.equal(SiteSections.admin?.hidden, true)
-  assert.equal(await SiteSections.access!.read!({ req: req(user) }), false)
   assert.deepEqual(SiteSettings.indexes, [
     { fields: ['company', 'pageSlug'], unique: true },
   ])
@@ -104,31 +101,13 @@ test('page validation rejects foreign components, companies, routes and media', 
   assert.deepEqual(await invoke(data), data)
 })
 
-test('migrate 13 components into three pages preserving all content and edits', async () => {
+test('seed three pages preserving all content and edits', async () => {
   const companies = [
     { id: 1, slug: 'localize' },
     { id: 2, slug: 'rastrear' },
   ]
   type Document = Record<string, unknown>
-  const legacy: Document[] = sections.map((s, i) => ({
-    id: i + 1,
-    company: s.company === 'localize' ? 1 : 2,
-    sectionKey: s.variant,
-    content: {
-      [s.variant]: Object.fromEntries(
-        s.fields.map((f) => [
-          f.name,
-          f.type === 'upload' ? i + 100 : f.defaultValue,
-        ]),
-      ),
-    },
-  }))
-  const originalHero = (
-    legacy[0].content as Record<string, Record<string, unknown>>
-  ).locHero
-  originalHero.title1 = 'Existing CMS edit'
-  originalHero.description1 = ''
-  originalHero.image1 = null
+  const mediaDocs: Document[] = []
   const pages: Document[] = []
   const match = (doc: Document, where: Record<string, unknown>): boolean =>
     Object.entries(where).every(([key, value]) =>
@@ -146,12 +125,17 @@ test('migrate 13 components into three pages preserving all content and edits', 
     }) => ({
       docs: (collection === 'companies'
         ? companies
-        : collection === 'site-sections'
-          ? legacy
+        : collection === 'media'
+          ? mediaDocs
           : pages
       ).filter((doc) => match(doc, where)),
     }),
-    create: async ({ data }: { data: Document }) => {
+    create: async ({ collection, data }: { collection: string; data: Document }) => {
+      if (collection === 'media') {
+        const doc = { id: mediaDocs.length + 100, ...data }
+        mediaDocs.push(doc)
+        return doc
+      }
       const doc = { id: pages.length + 1, ...data }
       pages.push(doc)
       return doc
@@ -162,23 +146,12 @@ test('migrate 13 components into three pages preserving all content and edits', 
         data,
       ),
   } as unknown as Payload
-  const legacySnapshot = structuredClone(legacy)
+
   await seedPages(payload)
   assert.equal(pages.length, 3)
   for (const page of sitePages) {
     const saved = pages.find((p) => p.pageKey === page.key)!
     assert.deepEqual(Object.keys(saved.content as object), [...page.sections])
-    for (const variant of page.sections) {
-      assert.deepEqual(
-        (saved.content as Record<string, unknown>)[variant],
-        (
-          legacy.find((d) => d.sectionKey === variant)!.content as Record<
-            string,
-            unknown
-          >
-        )[variant],
-      )
-    }
   }
   const home = pages.find((p) => p.pageKey === 'localize-home')!
   ;(home.content as Record<string, Record<string, unknown>>).locHero.title1 =
@@ -186,7 +159,6 @@ test('migrate 13 components into three pages preserving all content and edits', 
   const snapshot = structuredClone(pages)
   await seedPages(payload)
   assert.deepEqual(pages, snapshot)
-  assert.deepEqual(legacy, legacySnapshot)
 })
 
 test('each route fetches one page and returns only its components', async () => {

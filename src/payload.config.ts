@@ -9,10 +9,7 @@ import { pt } from "@payloadcms/translations/languages/pt";
 import { Users } from "./collections/Users";
 import { Companies } from "./collections/Companies";
 import { Media } from "./collections/Media";
-import { Folders } from "./collections/Folders";
 import { SiteSettings } from "./collections/SiteSettings";
-import { SiteSections } from "./collections/SiteSections";
-import { News } from "./collections/News";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -31,9 +28,10 @@ export default buildConfig({
         Logo: '/components/Logo#Logo',
         Icon: '/components/Icon#Icon',
       },
+      beforeDashboard: ['/components/BeforeDashboard#BeforeDashboard'],
     },
   },
-  collections: [Users, Companies, Media, Folders, News, SiteSections, SiteSettings],
+  collections: [Users, Companies, Media, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

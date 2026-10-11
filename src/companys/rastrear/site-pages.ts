@@ -1,16 +1,4 @@
-import sections from './home-sections.json'
-
-export const sitePages = [
-  {
-    key: 'localize-home',
-    company: 'localize',
-    slug: 'home',
-    route: '/',
-    name: 'Página inicial',
-    sections: sections
-      .filter((s) => s.company === 'localize')
-      .map((s) => s.variant),
-  },
+export const rastrearPages = [
   {
     key: 'rastrear-home',
     company: 'rastrear',

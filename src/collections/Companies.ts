@@ -10,7 +10,7 @@ export const Companies: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'slug'],
-    group: 'Coleções',
+    group: 'Opções',
     hidden: ({ user }: { user?: any }) => !user?.roles?.includes('super-admin'),
   },
   access: {

@@ -2,8 +2,8 @@ import { pathToFileURL, fileURLToPath } from 'node:url'
 import { getPayload, type Payload } from 'payload'
 import type { SiteSetting } from '../payload-types'
 import config from '../payload.config'
-import sections from '../content/home-sections.json'
-import { sitePages } from '../content/site-pages'
+import sections from '../companys/home-sections'
+import { sitePages } from '../companys/site-pages'
 
 /** Copy legacy content into page documents without overwriting existing edits. */
 export async function seedPages(payload: Payload) {
@@ -34,12 +34,6 @@ export async function seedPages(payload: Payload) {
       depth: 0,
     })
     const document = found.docs[0]
-    const legacy = await payload.find({
-      collection: 'site-sections',
-      where: { company: { equals: company.id } },
-      pagination: false,
-      depth: 0,
-    })
     const content: Record<string, Record<string, unknown>> = {}
     let changed = false
     for (const variant of page.sections) {
@@ -48,17 +42,11 @@ export async function seedPages(payload: Payload) {
         document?.content?.[
           variant as keyof NonNullable<SiteSetting['content']>
         ] ?? {}
-      const original =
-        legacy.docs.find((d) => d.sectionKey === variant)?.content?.[
-          variant as keyof NonNullable<SiteSetting['content']>
-        ] ?? {}
       const values: Record<string, unknown> = { ...current }
       for (const field of section.fields) {
         // Explicit null/empty values are edits too and must survive migration.
         if (Object.hasOwn(current, field.name)) continue
-        if (Object.hasOwn(original, field.name))
-          values[field.name] = original[field.name as keyof typeof original]
-        else if (field.type !== 'upload')
+        if (field.type !== 'upload')
           values[field.name] = field.defaultValue
         else {
           const image = field as typeof field & {
@@ -88,7 +76,7 @@ export async function seedPages(payload: Payload) {
               },
               filePath: fileURLToPath(
                 new URL(
-                  `../content/assets/${image.defaultFilename}`,
+                  `../companys/assets/${image.defaultFilename}`,
                   import.meta.url,
                 ),
               ),

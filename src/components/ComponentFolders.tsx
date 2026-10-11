@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Folder, ArrowLeft, ChevronRight } from 'lucide-react'
-import sections from '../content/home-sections.json'
+import sections from '../companys/home-sections'
 
 /** Navigation only: content remains in its original page fields. */
 export function ComponentFolders() {
