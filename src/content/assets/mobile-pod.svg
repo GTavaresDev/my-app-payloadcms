@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="podBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="phoneGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="450" rx="16" fill="url(#podBg)"/>
+  
+  <!-- Subtle border -->
+  <rect x="1" y="1" width="598" height="448" rx="15" fill="none" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Phone Mockup Container -->
+  <g transform="translate(190, 30)">
+    <!-- Phone body -->
+    <rect width="220" height="390" rx="28" fill="#090d16" stroke="#475569" stroke-width="3"/>
+    <!-- Screen -->
+    <rect x="8" y="12" width="204" height="366" rx="20" fill="#0f172a"/>
+    
+    <!-- Camera pill -->
+    <rect x="80" y="18" width="60" height="10" rx="5" fill="#000000"/>
+    
+    <!-- App Header -->
+    <rect x="18" y="40" width="184" height="32" rx="6" fill="#1e293b"/>
+    <text x="30" y="60" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Comprovante de Entrega</text>
+    
+    <!-- Order Card -->
+    <rect x="18" y="82" width="184" height="60" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="28" y="100" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9">CTE Nº 004.912-A</text>
+    <text x="28" y="116" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Distribuidora Aliança SP</text>
+    <circle cx="178" cy="112" r="8" fill="#10b981"/>
+    <path d="M 174 112 L 177 115 L 182 109" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+
+    <!-- Signature area -->
+    <rect x="18" y="152" width="184" height="90" rx="8" fill="#021426" stroke="#0284c7" stroke-width="1.5"/>
+    <text x="28" y="170" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Assinatura Digital Recebedor</text>
+    <!-- Digital scribble -->
+    <path d="M 35 210 Q 70 180 90 215 T 140 190 T 170 205" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <text x="28" y="233" fill="#64748b" font-family="system-ui, sans-serif" font-size="8">Lat: -23.5505 • Long: -46.6333 (14:32:09)</text>
+
+    <!-- Photo proof box -->
+    <rect x="18" y="252" width="184" height="65" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="28" y="262" width="45" height="45" rx="6" fill="#0369a1"/>
+    <text x="44" y="290" fill="#ffffff" font-family="system-ui, sans-serif" font-size="16">📷</text>
+    <text x="82" y="278" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Canhoto Carimbado</text>
+    <text x="82" y="293" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="8">Foto validada por IA com OCR</text>
+    <text x="82" y="306" fill="#10b981" font-family="system-ui, sans-serif" font-size="8" font-weight="bold">✓ 100% legível</text>
+
+    <!-- Send button -->
+    <rect x="18" y="328" width="184" height="34" rx="8" fill="#0284c7"/>
+    <text x="60" y="350" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">TRANSMITIR POD</text>
+  </g>
+
+  <!-- Left badge -->
+  <g transform="translate(30, 160)">
+    <rect width="135" height="80" rx="10" fill="#0f172a" stroke="#0284c7" stroke-width="1"/>
+    <text x="15" y="28" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">LIQUIDAÇÃO</text>
+    <text x="15" y="52" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">&lt; 15 min</text>
+    <text x="15" y="68" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">Liberação do frete</text>
+  </g>
+
+  <!-- Right badge -->
+  <g transform="translate(435, 230)">
+    <rect width="135" height="80" rx="10" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+    <text x="15" y="28" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">COMPROVAÇÃO</text>
+    <text x="15" y="52" fill="#10b981" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Sem papel</text>
+    <text x="15" y="68" fill="#64748b" font-family="system-ui, sans-serif" font-size="9">Arquivo em nuvem</text>
+  </g>
+</svg>

@@ -1,3 +1,4 @@
+import { superAdmin } from '../access/tenant'
 import type { CollectionConfig } from 'payload'
 
 export const Folders: CollectionConfig = {
@@ -10,10 +11,9 @@ export const Folders: CollectionConfig = {
         useAsTitle: 'name',
         defaultColumns: ['name', 'slug'],
         group: 'Coleções',
+    hidden: true,
     },
-    access: {
-        read: () => true,
-    },
+  access: { read: superAdmin, create: superAdmin, update: superAdmin, delete: superAdmin },
     fields: [
         {
             name: 'name',

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1329"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="amberGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="0.5" stroke-opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bgGrad)"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+
+  <!-- Top bar of control tower -->
+  <rect x="30" y="25" width="740" height="45" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <circle cx="55" cy="47" r="6" fill="#10b981"/>
+  <text x="70" y="52" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" font-weight="600">TORRE DE CONTROLE 24/7 • MONITORAMENTO EM TEMPO REAL</text>
+  <rect x="620" y="37" width="130" height="22" rx="11" fill="#0284c7" fill-opacity="0.2"/>
+  <text x="635" y="52" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">● 1.480 VEÍCULOS ONLINE</text>
+
+  <!-- Map / Telemetry central window -->
+  <rect x="30" y="85" width="480" height="380" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="50" y="115" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">Geolocalização &amp; Rotas Críticas</text>
+  <text x="50" y="133" fill="#64748b" font-family="system-ui, sans-serif" font-size="11">Corredores Logísticos SP - RJ - MG - PR - SC</text>
+
+  <!-- Radar circle -->
+  <circle cx="270" cy="270" r="140" fill="none" stroke="#1e293b" stroke-width="1"/>
+  <circle cx="270" cy="270" r="95" fill="none" stroke="#0284c7" stroke-dasharray="4 4" stroke-width="1" stroke-opacity="0.4"/>
+  <circle cx="270" cy="270" r="45" fill="none" stroke="#0284c7" stroke-width="1" stroke-opacity="0.6"/>
+
+  <!-- Routes -->
+  <path d="M 120 360 Q 200 280 270 270 T 390 190 T 450 160" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 170 390 Q 260 310 320 280 T 420 230" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="6 4" stroke-linecap="round"/>
+
+  <!-- Truck pins -->
+  <g transform="translate(265, 260)">
+    <circle cx="5" cy="10" r="14" fill="#0284c7" fill-opacity="0.3"/>
+    <circle cx="5" cy="10" r="7" fill="#38bdf8"/>
+    <rect x="18" y="0" width="95" height="24" rx="4" fill="#1e293b" stroke="#0284c7" stroke-width="1"/>
+    <text x="24" y="16" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Frota #402 • Na Rota</text>
+  </g>
+
+  <g transform="translate(385, 180)">
+    <circle cx="5" cy="10" r="14" fill="#10b981" fill-opacity="0.3"/>
+    <circle cx="5" cy="10" r="7" fill="#10b981"/>
+    <rect x="18" y="0" width="90" height="24" rx="4" fill="#1e293b" stroke="#10b981" stroke-width="1"/>
+    <text x="24" y="16" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Frota #118 • Entregue</text>
+  </g>
+
+  <!-- Right side cards -->
+  <rect x="525" y="85" width="245" height="115" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="545" y="112" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" font-weight="600">PONTUALIDADE (OTD)</text>
+  <text x="545" y="145" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="28" font-weight="800">98.4%</text>
+  <rect x="545" y="160" width="205" height="6" rx="3" fill="#334155"/>
+  <rect x="545" y="160" width="195" height="6" rx="3" fill="#10b981"/>
+  <text x="545" y="185" fill="#10b981" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">↑ +3.2% vs média do setor</text>
+
+  <rect x="525" y="215" width="245" height="120" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="545" y="242" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" font-weight="600">TEMPO MÉDIO DE PÁTIO</text>
+  <text x="545" y="275" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="28" font-weight="800">28 min</text>
+  <text x="545" y="300" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Redução de gargalo com agendamento</text>
+  <text x="545" y="320" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">-42min economizados p/ viagem</text>
+
+  <rect x="525" y="350" width="245" height="115" rx="10" fill="url(#blueGlow)" stroke="#0284c7" stroke-width="1"/>
+  <text x="545" y="380" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">CTE &amp; MDF-e Express</text>
+  <text x="545" y="402" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="11">Autorização SEFAZ automática</text>
+  <rect x="545" y="420" width="120" height="26" rx="6" fill="#ffffff"/>
+  <text x="555" y="437" fill="#0369a1" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Status: Ativo 100%</text>
+</svg>

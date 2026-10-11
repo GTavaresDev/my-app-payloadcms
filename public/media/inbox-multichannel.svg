@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="inboxBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0518"/>
+      <stop offset="100%" stop-color="#150a30"/>
+    </linearGradient>
+    <linearGradient id="accentPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9333ea"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="700" height="500" rx="16" fill="url(#inboxBg)"/>
+  <rect x="1" y="1" width="698" height="498" rx="15" fill="none" stroke="#361a73" stroke-width="1.5"/>
+
+  <!-- Top bar -->
+  <rect x="25" y="20" width="650" height="45" rx="10" fill="#1b0f40"/>
+  <circle cx="45" cy="42" r="5" fill="#ef4444"/>
+  <circle cx="60" cy="42" r="5" fill="#f59e0b"/>
+  <circle cx="75" cy="42" r="5" fill="#10b981"/>
+  <text x="100" y="47" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Central Omnicanal Unificada • 18 Atendentes + IA Copilot</text>
+  
+  <rect x="520" y="28" width="140" height="28" rx="6" fill="#10b981" fill-opacity="0.2"/>
+  <text x="532" y="46" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">● FILA ZERADA (0s)</text>
+
+  <!-- Left Queue Panel -->
+  <g transform="translate(25, 80)">
+    <rect width="210" height="395" rx="12" fill="#13092d" stroke="#2d155f" stroke-width="1"/>
+    <text x="15" y="30" fill="#a78bfa" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">CANAL DE ORIGEM</text>
+
+    <!-- WhatsApp badge -->
+    <rect x="15" y="48" width="180" height="48" rx="8" fill="#201048" stroke="#10b981" stroke-width="1"/>
+    <circle cx="35" cy="72" r="10" fill="#25d366"/>
+    <text x="52" y="66" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">WhatsApp Oficial</text>
+    <text x="52" y="82" fill="#34d399" font-family="system-ui, sans-serif" font-size="10">94 chamados hoje</text>
+
+    <!-- Instagram DM -->
+    <rect x="15" y="106" width="180" height="48" rx="8" fill="#180c38"/>
+    <circle cx="35" cy="130" r="10" fill="#e1306c"/>
+    <text x="52" y="124" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Instagram Direct</text>
+    <text x="52" y="140" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">38 conversas</text>
+
+    <!-- Webchat Site -->
+    <rect x="15" y="164" width="180" height="48" rx="8" fill="#180c38"/>
+    <circle cx="35" cy="188" r="10" fill="#3b82f6"/>
+    <text x="52" y="182" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Webchat Corporativo</text>
+    <text x="52" y="198" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">21 sessões ao vivo</text>
+
+    <!-- Email Desk -->
+    <rect x="15" y="222" width="180" height="48" rx="8" fill="#180c38"/>
+    <circle cx="35" cy="246" r="10" fill="#a855f7"/>
+    <text x="52" y="240" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Central de E-mails</text>
+    <text x="52" y="256" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">12 tickets pendentes</text>
+
+    <!-- Quick filter tags -->
+    <rect x="15" y="290" width="180" height="85" rx="8" fill="#1a0d3d"/>
+    <text x="25" y="312" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">MARCADORES INTELIGENTES</text>
+    <rect x="25" y="322" width="70" height="20" rx="10" fill="#7c3aed" fill-opacity="0.3"/>
+    <text x="35" y="336" fill="#c084fc" font-family="system-ui, sans-serif" font-size="9">Prioridade Alta</text>
+    <rect x="102" y="322" width="65" height="20" rx="10" fill="#10b981" fill-opacity="0.3"/>
+    <text x="112" y="336" fill="#34d399" font-family="system-ui, sans-serif" font-size="9">Comercial</text>
+    <rect x="25" y="348" width="80" height="20" rx="10" fill="#0284c7" fill-opacity="0.3"/>
+    <text x="35" y="362" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9">Cancelamento</text>
+  </g>
+
+  <!-- Right Message Viewer & AI Copilot -->
+  <g transform="translate(250, 80)">
+    <rect width="425" height="395" rx="12" fill="#13092d" stroke="#2d155f" stroke-width="1"/>
+    
+    <!-- User bar -->
+    <rect width="425" height="50" rx="12" fill="#1f1147"/>
+    <circle cx="28" cy="25" r="14" fill="#7c3aed"/>
+    <text x="28" y="29" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">GS</text>
+    <text x="50" y="23" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Gabriel Santos (Cliente VIP)</text>
+    <text x="50" y="39" fill="#34d399" font-family="system-ui, sans-serif" font-size="10">● Online via WhatsApp API</text>
+
+    <!-- Message history -->
+    <rect x="20" y="65" width="280" height="45" rx="10" fill="#1d0f42"/>
+    <text x="32" y="85" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11">Boa tarde! Gostaria de fazer o upgrade</text>
+    <text x="32" y="100" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11">do plano para 10 operadores adicionais.</text>
+
+    <!-- Copilot Smart Box -->
+    <rect x="20" y="125" width="385" height="150" rx="12" fill="#180e3b" stroke="#7c3aed" stroke-width="1.5"/>
+    <rect x="35" y="140" width="130" height="24" rx="6" fill="#7c3aed"/>
+    <text x="45" y="156" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">⚡ RESPOSTA SUGERIDA</text>
+
+    <text x="35" y="185" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11">"Olá Gabriel! Perfeito! O upgrade de 10 licenças</text>
+    <text x="35" y="202" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11">fica com desconto de parceiro de R$ 380/mês.</text>
+    <text x="35" y="219" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11">Gostaria que eu emita o termo de aditivo agora?"</text>
+
+    <rect x="35" y="235" width="150" height="28" rx="6" fill="#10b981"/>
+    <text x="48" y="253" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">✓ Inserir Resposta (Tab)</text>
+
+    <rect x="195" y="235" width="110" height="28" rx="6" fill="#2d155f"/>
+    <text x="210" y="253" fill="#a78bfa" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Regenerar (Alt+R)</text>
+
+    <!-- Input text bar -->
+    <rect x="20" y="320" width="385" height="55" rx="10" fill="#1b0f42" stroke="#3b1f7d" stroke-width="1"/>
+    <text x="35" y="345" fill="#64748b" font-family="system-ui, sans-serif" font-size="11">Digite a resposta ou selecione uma macro rápida...</text>
+    <circle cx="380" cy="347" r="14" fill="#7c3aed"/>
+    <text x="380" y="351" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">➤</text>
+  </g>
+</svg>

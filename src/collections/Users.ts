@@ -1,39 +1,50 @@
-import type { CollectionConfig } from 'payload'
+import { APIError, type Access, type CollectionConfig, type Where } from 'payload'
+import { companyID, isSuperAdmin, superAdmin, superAdminField } from '../access/tenant'
+
+const manageCompanyUsers: Access = ({ req: { user } }) => {
+  if (!user) return false
+  if (isSuperAdmin(user)) return true
+  const company = companyID(user)
+  if (!company) return false
+  const where: Where = { and: [
+    { company: { equals: company } },
+    { roles: { not_in: ['super-admin'] } },
+  ] }
+  return where
+}
 
 export const Users: CollectionConfig = {
   slug: 'users',
-  labels: {
-    singular: 'Usuário',
-    plural: 'Usuários',
-  },
+  labels: { singular: 'Usuário', plural: 'Usuários' },
   admin: {
     useAsTitle: 'email',
-    defaultColumns: ['email', 'company', 'roles'],
+    defaultColumns: ['email'],
     group: 'Coleções',
   },
   auth: true,
   access: {
-    // Super-admin pode listar todos os usuários, usuário comum só vê o próprio
-    read: ({ req: { user } }: { req: { user?: any } }) => {
-      if (!user) return false
-      if (user.roles?.includes('super-admin')) return true
-      return {
-        id: {
-          equals: user.id,
-        },
+    read: manageCompanyUsers,
+    update: manageCompanyUsers,
+    create: ({ req: { user } }) => Boolean(user && (isSuperAdmin(user) || companyID(user))),
+    delete: superAdmin,
+  },
+  hooks: {
+    beforeValidate: [({ data, originalDoc, operation, req }) => {
+      if (!data || isSuperAdmin(req.user)) return data
+      const company = companyID(req.user)
+      if (!company) throw new APIError('Usuário sem empresa não pode gerenciar usuários.', 403)
+      if (operation === 'create') {
+        // Server-owned values override even a forged API request.
+        return { ...data, company, roles: ['user'] }
       }
-    },
-    update: ({ req: { user } }: { req: { user?: any } }) => {
-      if (!user) return false
-      if (user.roles?.includes('super-admin')) return true
-      return {
-        id: {
-          equals: user.id,
-        },
+      const targetCompany = typeof originalDoc?.company === 'object' ? originalDoc.company?.id : originalDoc?.company
+      if (targetCompany !== company || isSuperAdmin(originalDoc)) {
+        throw new APIError('Você só pode gerenciar usuários comuns da sua empresa.', 403)
       }
-    },
-    delete: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
-    create: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
+      // Preserve existing identity and permissions on updates, including requests
+      // made through the Local API with access overrides.
+      return { ...data, company: targetCompany, roles: originalDoc.roles }
+    }],
   },
   fields: [
     {
@@ -43,15 +54,14 @@ export const Users: CollectionConfig = {
       hasMany: true,
       defaultValue: ['user'],
       options: [
-        { label: 'Super Admin', value: 'super-admin' },
-        { label: 'Company Admin', value: 'company-admin' },
+        { label: 'Administrador geral', value: 'super-admin' },
+        { label: 'Administrador da empresa', value: 'company-admin' },
         { label: 'Usuário', value: 'user' },
       ],
-      access: {
-        update: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
-      },
+      access: { read: superAdminField, create: superAdminField, update: superAdminField },
       admin: {
         position: 'sidebar',
+        condition: (_data, _siblingData, { user }) => isSuperAdmin(user),
       },
     },
     {
@@ -59,8 +69,10 @@ export const Users: CollectionConfig = {
       label: 'Empresa',
       type: 'relationship',
       relationTo: 'companies',
+      access: { create: superAdminField, update: superAdminField },
       admin: {
         position: 'sidebar',
+        condition: (_data, _siblingData, { user }) => isSuperAdmin(user),
       },
     },
   ],

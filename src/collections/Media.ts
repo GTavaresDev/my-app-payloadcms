@@ -33,6 +33,7 @@ export const Media: CollectionConfig = {
   },
   admin: {
     group: 'Coleções',
+    hidden: true,
   },
   access: {
     read: canAccessByCompany,
@@ -103,6 +104,7 @@ export const Media: CollectionConfig = {
       relationTo: 'folders',
       hasMany: false,
       admin: {
+        hidden: true,
         position: 'sidebar',
       },
     },

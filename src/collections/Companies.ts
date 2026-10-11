@@ -1,3 +1,4 @@
+import { companyID, isSuperAdmin } from '../access/tenant'
 import type { CollectionConfig } from 'payload'
 
 export const Companies: CollectionConfig = {
@@ -13,11 +14,10 @@ export const Companies: CollectionConfig = {
     hidden: ({ user }: { user?: any }) => !user?.roles?.includes('super-admin'),
   },
   access: {
-    read: ({ req: { user } }: { req: { user?: any } }) => {
-      // Requisições públicas (frontends dos sites) podem ler para identificar o tenant
-      if (!user) return true
-      // No painel administrativo, apenas super-admin pode visualizar empresas
-      return Boolean(user?.roles?.includes('super-admin'))
+    read: ({ req: { user } }) => {
+      if (!user || isSuperAdmin(user)) return true
+      const id = companyID(user)
+      return id ? { id: { equals: id } } : false
     },
     create: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
     update: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.roles?.includes('super-admin')),
@@ -32,7 +32,7 @@ export const Companies: CollectionConfig = {
     },
     {
       name: 'slug',
-      label: 'Identificador (Slug)',
+      label: 'Identificador',
       type: 'text',
       required: true,
       unique: true,

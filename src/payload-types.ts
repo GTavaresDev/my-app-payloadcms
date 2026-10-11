@@ -72,6 +72,8 @@ export interface Config {
     media: Media;
     folders: Folder;
     news: News;
+    'site-sections': SiteSection;
+    'site-settings': SiteSetting;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +86,8 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     folders: FoldersSelect<false> | FoldersSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
+    'site-sections': SiteSectionsSelect<false> | SiteSectionsSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -209,6 +213,571 @@ export interface News {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-sections".
+ */
+export interface SiteSection {
+  id: number;
+  name: string;
+  company: number | Company;
+  /**
+   * Identificador interno da página. home corresponde à Página inicial.
+   */
+  pageSlug?: string | null;
+  sectionKey:
+    | 'locHero'
+    | 'locContact'
+    | 'locBenefits'
+    | 'locAltFeat'
+    | 'locStats'
+    | 'locCards'
+    | 'locCta'
+    | 'rasHero'
+    | 'rasFeatures'
+    | 'rasTestimonial'
+    | 'rasTower'
+    | 'rasGallery'
+    | 'rasFaq';
+  content?: {
+    locHero?: {
+      text1?: string | null;
+      text2?: string | null;
+      title1?: string | null;
+      text3?: string | null;
+      title2?: string | null;
+      title3?: string | null;
+      description1?: string | null;
+      text4?: string | null;
+      text5?: string | null;
+      text6?: string | null;
+      image1?: (number | null) | Media;
+      description2?: string | null;
+      text7?: string | null;
+      text8?: string | null;
+      text9?: string | null;
+      text10?: string | null;
+      text11?: string | null;
+    };
+    locContact?: {
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      text2?: string | null;
+      text3?: string | null;
+      text4?: string | null;
+      text5?: string | null;
+      title2?: string | null;
+      description2?: string | null;
+      description3?: string | null;
+    };
+    locBenefits?: {
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      text2?: string | null;
+      title2?: string | null;
+      description2?: string | null;
+      text3?: string | null;
+      text4?: string | null;
+      text5?: string | null;
+      title3?: string | null;
+      description3?: string | null;
+      text6?: string | null;
+      text7?: string | null;
+      title4?: string | null;
+      description4?: string | null;
+      text8?: string | null;
+      text9?: string | null;
+      title5?: string | null;
+      description5?: string | null;
+      text10?: string | null;
+      text11?: string | null;
+      text12?: string | null;
+      text13?: string | null;
+      text14?: string | null;
+      text15?: string | null;
+      text16?: string | null;
+    };
+    locAltFeat?: {
+      image1?: (number | null) | Media;
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      text2?: string | null;
+      text3?: string | null;
+      text4?: string | null;
+      text5?: string | null;
+      text6?: string | null;
+      text7?: string | null;
+      text8?: string | null;
+      title2?: string | null;
+      description2?: string | null;
+      text9?: string | null;
+      text10?: string | null;
+      text11?: string | null;
+      text12?: string | null;
+      text13?: string | null;
+      text14?: string | null;
+      image2?: (number | null) | Media;
+    };
+    locStats?: {
+      value1?: string | null;
+      label1?: string | null;
+      detail1?: string | null;
+      value2?: string | null;
+      label2?: string | null;
+      detail2?: string | null;
+      value3?: string | null;
+      label3?: string | null;
+      detail3?: string | null;
+      value4?: string | null;
+      label4?: string | null;
+      detail4?: string | null;
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+    };
+    locCards?: {
+      title1?: string | null;
+      desc1?: string | null;
+      badge1?: string | null;
+      title2?: string | null;
+      desc2?: string | null;
+      badge2?: string | null;
+      title3?: string | null;
+      desc3?: string | null;
+      badge3?: string | null;
+      title4?: string | null;
+      desc4?: string | null;
+      badge4?: string | null;
+      title5?: string | null;
+      desc5?: string | null;
+      badge5?: string | null;
+      title6?: string | null;
+      desc6?: string | null;
+      badge6?: string | null;
+      text1?: string | null;
+      title7?: string | null;
+      description1?: string | null;
+      text2?: string | null;
+    };
+    locCta?: {
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      text2?: string | null;
+      text3?: string | null;
+      text4?: string | null;
+    };
+    rasHero?: {
+      text1?: string | null;
+      text2?: string | null;
+      title1?: string | null;
+      text3?: string | null;
+      title2?: string | null;
+      description1?: string | null;
+      text4?: string | null;
+      text5?: string | null;
+      text6?: string | null;
+      text7?: string | null;
+      text8?: string | null;
+      text9?: string | null;
+      text10?: string | null;
+      text11?: string | null;
+      text12?: string | null;
+      text13?: string | null;
+      text14?: string | null;
+      text15?: string | null;
+      text16?: string | null;
+      text17?: string | null;
+      text18?: string | null;
+      text19?: string | null;
+      text20?: string | null;
+      title3?: string | null;
+      text21?: string | null;
+      image1?: (number | null) | Media;
+      text22?: string | null;
+      title4?: string | null;
+      description2?: string | null;
+      image2?: (number | null) | Media;
+      text23?: string | null;
+      title5?: string | null;
+      description3?: string | null;
+      image3?: (number | null) | Media;
+      text24?: string | null;
+      title6?: string | null;
+      description4?: string | null;
+    };
+    rasFeatures?: {
+      tag1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      highlight1?: string | null;
+      tag2?: string | null;
+      title2?: string | null;
+      description2?: string | null;
+      highlight2?: string | null;
+      tag3?: string | null;
+      title3?: string | null;
+      description3?: string | null;
+      highlight3?: string | null;
+      tag4?: string | null;
+      title4?: string | null;
+      description4?: string | null;
+      highlight4?: string | null;
+      text1?: string | null;
+      title5?: string | null;
+      description5?: string | null;
+      title6?: string | null;
+      description6?: string | null;
+      text2?: string | null;
+    };
+    rasTestimonial?: {
+      text1?: string | null;
+      description1?: string | null;
+      image1?: (number | null) | Media;
+      title1?: string | null;
+      description2?: string | null;
+      text2?: string | null;
+      text3?: string | null;
+      text4?: string | null;
+      description3?: string | null;
+      text5?: string | null;
+      text6?: string | null;
+      description4?: string | null;
+      text7?: string | null;
+      text8?: string | null;
+      description5?: string | null;
+      text9?: string | null;
+      text10?: string | null;
+      description6?: string | null;
+    };
+    rasTower?: {
+      image1?: (number | null) | Media;
+      text1?: string | null;
+      text2?: string | null;
+      text3?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      title2?: string | null;
+      description2?: string | null;
+      title3?: string | null;
+      description3?: string | null;
+      title4?: string | null;
+      description4?: string | null;
+    };
+    rasGallery?: {
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      image1?: (number | null) | Media;
+      text2?: string | null;
+      title2?: string | null;
+      description2?: string | null;
+      text3?: string | null;
+      text4?: string | null;
+      image2?: (number | null) | Media;
+      text5?: string | null;
+      title3?: string | null;
+      description3?: string | null;
+      text6?: string | null;
+      text7?: string | null;
+    };
+    rasFaq?: {
+      question1?: string | null;
+      answer1?: string | null;
+      question2?: string | null;
+      answer2?: string | null;
+      question3?: string | null;
+      answer3?: string | null;
+      question4?: string | null;
+      answer4?: string | null;
+      question5?: string | null;
+      answer5?: string | null;
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+    };
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  name: string;
+  company: number | Company;
+  pageKey?: ('localize-home' | 'rastrear-home' | 'rastrear-logistica') | null;
+  pageSlug?: string | null;
+  route: string;
+  content?: {
+    locHero?: {
+      text1?: string | null;
+      text2?: string | null;
+      title1?: string | null;
+      text3?: string | null;
+      title2?: string | null;
+      title3?: string | null;
+      description1?: string | null;
+      text4?: string | null;
+      text5?: string | null;
+      text6?: string | null;
+      image1?: (number | null) | Media;
+      description2?: string | null;
+      text7?: string | null;
+      text8?: string | null;
+      text9?: string | null;
+      text10?: string | null;
+      text11?: string | null;
+    };
+    locContact?: {
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      text2?: string | null;
+      text3?: string | null;
+      text4?: string | null;
+      text5?: string | null;
+      title2?: string | null;
+      description2?: string | null;
+      description3?: string | null;
+    };
+    locBenefits?: {
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      text2?: string | null;
+      title2?: string | null;
+      description2?: string | null;
+      text3?: string | null;
+      text4?: string | null;
+      text5?: string | null;
+      title3?: string | null;
+      description3?: string | null;
+      text6?: string | null;
+      text7?: string | null;
+      title4?: string | null;
+      description4?: string | null;
+      text8?: string | null;
+      text9?: string | null;
+      title5?: string | null;
+      description5?: string | null;
+      text10?: string | null;
+      text11?: string | null;
+      text12?: string | null;
+      text13?: string | null;
+      text14?: string | null;
+      text15?: string | null;
+      text16?: string | null;
+    };
+    locAltFeat?: {
+      image1?: (number | null) | Media;
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      text2?: string | null;
+      text3?: string | null;
+      text4?: string | null;
+      text5?: string | null;
+      text6?: string | null;
+      text7?: string | null;
+      text8?: string | null;
+      title2?: string | null;
+      description2?: string | null;
+      text9?: string | null;
+      text10?: string | null;
+      text11?: string | null;
+      text12?: string | null;
+      text13?: string | null;
+      text14?: string | null;
+      image2?: (number | null) | Media;
+    };
+    locStats?: {
+      value1?: string | null;
+      label1?: string | null;
+      detail1?: string | null;
+      value2?: string | null;
+      label2?: string | null;
+      detail2?: string | null;
+      value3?: string | null;
+      label3?: string | null;
+      detail3?: string | null;
+      value4?: string | null;
+      label4?: string | null;
+      detail4?: string | null;
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+    };
+    locCards?: {
+      title1?: string | null;
+      desc1?: string | null;
+      badge1?: string | null;
+      title2?: string | null;
+      desc2?: string | null;
+      badge2?: string | null;
+      title3?: string | null;
+      desc3?: string | null;
+      badge3?: string | null;
+      title4?: string | null;
+      desc4?: string | null;
+      badge4?: string | null;
+      title5?: string | null;
+      desc5?: string | null;
+      badge5?: string | null;
+      title6?: string | null;
+      desc6?: string | null;
+      badge6?: string | null;
+      text1?: string | null;
+      title7?: string | null;
+      description1?: string | null;
+      text2?: string | null;
+    };
+    locCta?: {
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      text2?: string | null;
+      text3?: string | null;
+      text4?: string | null;
+    };
+    rasHero?: {
+      text1?: string | null;
+      text2?: string | null;
+      title1?: string | null;
+      text3?: string | null;
+      title2?: string | null;
+      description1?: string | null;
+      text4?: string | null;
+      text5?: string | null;
+      text6?: string | null;
+      text7?: string | null;
+      text8?: string | null;
+      text9?: string | null;
+      text10?: string | null;
+      text11?: string | null;
+      text12?: string | null;
+      text13?: string | null;
+      text14?: string | null;
+      text15?: string | null;
+      text16?: string | null;
+      text17?: string | null;
+      text18?: string | null;
+      text19?: string | null;
+      text20?: string | null;
+      title3?: string | null;
+      text21?: string | null;
+      image1?: (number | null) | Media;
+      text22?: string | null;
+      title4?: string | null;
+      description2?: string | null;
+      image2?: (number | null) | Media;
+      text23?: string | null;
+      title5?: string | null;
+      description3?: string | null;
+      image3?: (number | null) | Media;
+      text24?: string | null;
+      title6?: string | null;
+      description4?: string | null;
+    };
+    rasFeatures?: {
+      tag1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      highlight1?: string | null;
+      tag2?: string | null;
+      title2?: string | null;
+      description2?: string | null;
+      highlight2?: string | null;
+      tag3?: string | null;
+      title3?: string | null;
+      description3?: string | null;
+      highlight3?: string | null;
+      tag4?: string | null;
+      title4?: string | null;
+      description4?: string | null;
+      highlight4?: string | null;
+      text1?: string | null;
+      title5?: string | null;
+      description5?: string | null;
+      title6?: string | null;
+      description6?: string | null;
+      text2?: string | null;
+    };
+    rasTestimonial?: {
+      text1?: string | null;
+      description1?: string | null;
+      image1?: (number | null) | Media;
+      title1?: string | null;
+      description2?: string | null;
+      text2?: string | null;
+      text3?: string | null;
+      text4?: string | null;
+      description3?: string | null;
+      text5?: string | null;
+      text6?: string | null;
+      description4?: string | null;
+      text7?: string | null;
+      text8?: string | null;
+      description5?: string | null;
+      text9?: string | null;
+      text10?: string | null;
+      description6?: string | null;
+    };
+    rasTower?: {
+      image1?: (number | null) | Media;
+      text1?: string | null;
+      text2?: string | null;
+      text3?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      title2?: string | null;
+      description2?: string | null;
+      title3?: string | null;
+      description3?: string | null;
+      title4?: string | null;
+      description4?: string | null;
+    };
+    rasGallery?: {
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+      image1?: (number | null) | Media;
+      text2?: string | null;
+      title2?: string | null;
+      description2?: string | null;
+      text3?: string | null;
+      text4?: string | null;
+      image2?: (number | null) | Media;
+      text5?: string | null;
+      title3?: string | null;
+      description3?: string | null;
+      text6?: string | null;
+      text7?: string | null;
+    };
+    rasFaq?: {
+      question1?: string | null;
+      answer1?: string | null;
+      question2?: string | null;
+      answer2?: string | null;
+      question3?: string | null;
+      answer3?: string | null;
+      question4?: string | null;
+      answer4?: string | null;
+      question5?: string | null;
+      answer5?: string | null;
+      text1?: string | null;
+      title1?: string | null;
+      description1?: string | null;
+    };
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -250,6 +819,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'news';
         value: number | News;
+      } | null)
+    | ({
+        relationTo: 'site-sections';
+        value: number | SiteSection;
+      } | null)
+    | ({
+        relationTo: 'site-settings';
+        value: number | SiteSetting;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -367,6 +944,609 @@ export interface NewsSelect<T extends boolean = true> {
   content?: T;
   company?: T;
   imagem?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-sections_select".
+ */
+export interface SiteSectionsSelect<T extends boolean = true> {
+  name?: T;
+  company?: T;
+  pageSlug?: T;
+  sectionKey?: T;
+  content?:
+    | T
+    | {
+        locHero?:
+          | T
+          | {
+              text1?: T;
+              text2?: T;
+              title1?: T;
+              text3?: T;
+              title2?: T;
+              title3?: T;
+              description1?: T;
+              text4?: T;
+              text5?: T;
+              text6?: T;
+              image1?: T;
+              description2?: T;
+              text7?: T;
+              text8?: T;
+              text9?: T;
+              text10?: T;
+              text11?: T;
+            };
+        locContact?:
+          | T
+          | {
+              text1?: T;
+              title1?: T;
+              description1?: T;
+              text2?: T;
+              text3?: T;
+              text4?: T;
+              text5?: T;
+              title2?: T;
+              description2?: T;
+              description3?: T;
+            };
+        locBenefits?:
+          | T
+          | {
+              text1?: T;
+              title1?: T;
+              description1?: T;
+              text2?: T;
+              title2?: T;
+              description2?: T;
+              text3?: T;
+              text4?: T;
+              text5?: T;
+              title3?: T;
+              description3?: T;
+              text6?: T;
+              text7?: T;
+              title4?: T;
+              description4?: T;
+              text8?: T;
+              text9?: T;
+              title5?: T;
+              description5?: T;
+              text10?: T;
+              text11?: T;
+              text12?: T;
+              text13?: T;
+              text14?: T;
+              text15?: T;
+              text16?: T;
+            };
+        locAltFeat?:
+          | T
+          | {
+              image1?: T;
+              text1?: T;
+              title1?: T;
+              description1?: T;
+              text2?: T;
+              text3?: T;
+              text4?: T;
+              text5?: T;
+              text6?: T;
+              text7?: T;
+              text8?: T;
+              title2?: T;
+              description2?: T;
+              text9?: T;
+              text10?: T;
+              text11?: T;
+              text12?: T;
+              text13?: T;
+              text14?: T;
+              image2?: T;
+            };
+        locStats?:
+          | T
+          | {
+              value1?: T;
+              label1?: T;
+              detail1?: T;
+              value2?: T;
+              label2?: T;
+              detail2?: T;
+              value3?: T;
+              label3?: T;
+              detail3?: T;
+              value4?: T;
+              label4?: T;
+              detail4?: T;
+              text1?: T;
+              title1?: T;
+              description1?: T;
+            };
+        locCards?:
+          | T
+          | {
+              title1?: T;
+              desc1?: T;
+              badge1?: T;
+              title2?: T;
+              desc2?: T;
+              badge2?: T;
+              title3?: T;
+              desc3?: T;
+              badge3?: T;
+              title4?: T;
+              desc4?: T;
+              badge4?: T;
+              title5?: T;
+              desc5?: T;
+              badge5?: T;
+              title6?: T;
+              desc6?: T;
+              badge6?: T;
+              text1?: T;
+              title7?: T;
+              description1?: T;
+              text2?: T;
+            };
+        locCta?:
+          | T
+          | {
+              text1?: T;
+              title1?: T;
+              description1?: T;
+              text2?: T;
+              text3?: T;
+              text4?: T;
+            };
+        rasHero?:
+          | T
+          | {
+              text1?: T;
+              text2?: T;
+              title1?: T;
+              text3?: T;
+              title2?: T;
+              description1?: T;
+              text4?: T;
+              text5?: T;
+              text6?: T;
+              text7?: T;
+              text8?: T;
+              text9?: T;
+              text10?: T;
+              text11?: T;
+              text12?: T;
+              text13?: T;
+              text14?: T;
+              text15?: T;
+              text16?: T;
+              text17?: T;
+              text18?: T;
+              text19?: T;
+              text20?: T;
+              title3?: T;
+              text21?: T;
+              image1?: T;
+              text22?: T;
+              title4?: T;
+              description2?: T;
+              image2?: T;
+              text23?: T;
+              title5?: T;
+              description3?: T;
+              image3?: T;
+              text24?: T;
+              title6?: T;
+              description4?: T;
+            };
+        rasFeatures?:
+          | T
+          | {
+              tag1?: T;
+              title1?: T;
+              description1?: T;
+              highlight1?: T;
+              tag2?: T;
+              title2?: T;
+              description2?: T;
+              highlight2?: T;
+              tag3?: T;
+              title3?: T;
+              description3?: T;
+              highlight3?: T;
+              tag4?: T;
+              title4?: T;
+              description4?: T;
+              highlight4?: T;
+              text1?: T;
+              title5?: T;
+              description5?: T;
+              title6?: T;
+              description6?: T;
+              text2?: T;
+            };
+        rasTestimonial?:
+          | T
+          | {
+              text1?: T;
+              description1?: T;
+              image1?: T;
+              title1?: T;
+              description2?: T;
+              text2?: T;
+              text3?: T;
+              text4?: T;
+              description3?: T;
+              text5?: T;
+              text6?: T;
+              description4?: T;
+              text7?: T;
+              text8?: T;
+              description5?: T;
+              text9?: T;
+              text10?: T;
+              description6?: T;
+            };
+        rasTower?:
+          | T
+          | {
+              image1?: T;
+              text1?: T;
+              text2?: T;
+              text3?: T;
+              title1?: T;
+              description1?: T;
+              title2?: T;
+              description2?: T;
+              title3?: T;
+              description3?: T;
+              title4?: T;
+              description4?: T;
+            };
+        rasGallery?:
+          | T
+          | {
+              text1?: T;
+              title1?: T;
+              description1?: T;
+              image1?: T;
+              text2?: T;
+              title2?: T;
+              description2?: T;
+              text3?: T;
+              text4?: T;
+              image2?: T;
+              text5?: T;
+              title3?: T;
+              description3?: T;
+              text6?: T;
+              text7?: T;
+            };
+        rasFaq?:
+          | T
+          | {
+              question1?: T;
+              answer1?: T;
+              question2?: T;
+              answer2?: T;
+              question3?: T;
+              answer3?: T;
+              question4?: T;
+              answer4?: T;
+              question5?: T;
+              answer5?: T;
+              text1?: T;
+              title1?: T;
+              description1?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  name?: T;
+  company?: T;
+  pageKey?: T;
+  pageSlug?: T;
+  route?: T;
+  content?:
+    | T
+    | {
+        locHero?:
+          | T
+          | {
+              text1?: T;
+              text2?: T;
+              title1?: T;
+              text3?: T;
+              title2?: T;
+              title3?: T;
+              description1?: T;
+              text4?: T;
+              text5?: T;
+              text6?: T;
+              image1?: T;
+              description2?: T;
+              text7?: T;
+              text8?: T;
+              text9?: T;
+              text10?: T;
+              text11?: T;
+            };
+        locContact?:
+          | T
+          | {
+              text1?: T;
+              title1?: T;
+              description1?: T;
+              text2?: T;
+              text3?: T;
+              text4?: T;
+              text5?: T;
+              title2?: T;
+              description2?: T;
+              description3?: T;
+            };
+        locBenefits?:
+          | T
+          | {
+              text1?: T;
+              title1?: T;
+              description1?: T;
+              text2?: T;
+              title2?: T;
+              description2?: T;
+              text3?: T;
+              text4?: T;
+              text5?: T;
+              title3?: T;
+              description3?: T;
+              text6?: T;
+              text7?: T;
+              title4?: T;
+              description4?: T;
+              text8?: T;
+              text9?: T;
+              title5?: T;
+              description5?: T;
+              text10?: T;
+              text11?: T;
+              text12?: T;
+              text13?: T;
+              text14?: T;
+              text15?: T;
+              text16?: T;
+            };
+        locAltFeat?:
+          | T
+          | {
+              image1?: T;
+              text1?: T;
+              title1?: T;
+              description1?: T;
+              text2?: T;
+              text3?: T;
+              text4?: T;
+              text5?: T;
+              text6?: T;
+              text7?: T;
+              text8?: T;
+              title2?: T;
+              description2?: T;
+              text9?: T;
+              text10?: T;
+              text11?: T;
+              text12?: T;
+              text13?: T;
+              text14?: T;
+              image2?: T;
+            };
+        locStats?:
+          | T
+          | {
+              value1?: T;
+              label1?: T;
+              detail1?: T;
+              value2?: T;
+              label2?: T;
+              detail2?: T;
+              value3?: T;
+              label3?: T;
+              detail3?: T;
+              value4?: T;
+              label4?: T;
+              detail4?: T;
+              text1?: T;
+              title1?: T;
+              description1?: T;
+            };
+        locCards?:
+          | T
+          | {
+              title1?: T;
+              desc1?: T;
+              badge1?: T;
+              title2?: T;
+              desc2?: T;
+              badge2?: T;
+              title3?: T;
+              desc3?: T;
+              badge3?: T;
+              title4?: T;
+              desc4?: T;
+              badge4?: T;
+              title5?: T;
+              desc5?: T;
+              badge5?: T;
+              title6?: T;
+              desc6?: T;
+              badge6?: T;
+              text1?: T;
+              title7?: T;
+              description1?: T;
+              text2?: T;
+            };
+        locCta?:
+          | T
+          | {
+              text1?: T;
+              title1?: T;
+              description1?: T;
+              text2?: T;
+              text3?: T;
+              text4?: T;
+            };
+        rasHero?:
+          | T
+          | {
+              text1?: T;
+              text2?: T;
+              title1?: T;
+              text3?: T;
+              title2?: T;
+              description1?: T;
+              text4?: T;
+              text5?: T;
+              text6?: T;
+              text7?: T;
+              text8?: T;
+              text9?: T;
+              text10?: T;
+              text11?: T;
+              text12?: T;
+              text13?: T;
+              text14?: T;
+              text15?: T;
+              text16?: T;
+              text17?: T;
+              text18?: T;
+              text19?: T;
+              text20?: T;
+              title3?: T;
+              text21?: T;
+              image1?: T;
+              text22?: T;
+              title4?: T;
+              description2?: T;
+              image2?: T;
+              text23?: T;
+              title5?: T;
+              description3?: T;
+              image3?: T;
+              text24?: T;
+              title6?: T;
+              description4?: T;
+            };
+        rasFeatures?:
+          | T
+          | {
+              tag1?: T;
+              title1?: T;
+              description1?: T;
+              highlight1?: T;
+              tag2?: T;
+              title2?: T;
+              description2?: T;
+              highlight2?: T;
+              tag3?: T;
+              title3?: T;
+              description3?: T;
+              highlight3?: T;
+              tag4?: T;
+              title4?: T;
+              description4?: T;
+              highlight4?: T;
+              text1?: T;
+              title5?: T;
+              description5?: T;
+              title6?: T;
+              description6?: T;
+              text2?: T;
+            };
+        rasTestimonial?:
+          | T
+          | {
+              text1?: T;
+              description1?: T;
+              image1?: T;
+              title1?: T;
+              description2?: T;
+              text2?: T;
+              text3?: T;
+              text4?: T;
+              description3?: T;
+              text5?: T;
+              text6?: T;
+              description4?: T;
+              text7?: T;
+              text8?: T;
+              description5?: T;
+              text9?: T;
+              text10?: T;
+              description6?: T;
+            };
+        rasTower?:
+          | T
+          | {
+              image1?: T;
+              text1?: T;
+              text2?: T;
+              text3?: T;
+              title1?: T;
+              description1?: T;
+              title2?: T;
+              description2?: T;
+              title3?: T;
+              description3?: T;
+              title4?: T;
+              description4?: T;
+            };
+        rasGallery?:
+          | T
+          | {
+              text1?: T;
+              title1?: T;
+              description1?: T;
+              image1?: T;
+              text2?: T;
+              title2?: T;
+              description2?: T;
+              text3?: T;
+              text4?: T;
+              image2?: T;
+              text5?: T;
+              title3?: T;
+              description3?: T;
+              text6?: T;
+              text7?: T;
+            };
+        rasFaq?:
+          | T
+          | {
+              question1?: T;
+              answer1?: T;
+              question2?: T;
+              answer2?: T;
+              question3?: T;
+              answer3?: T;
+              question4?: T;
+              answer4?: T;
+              question5?: T;
+              answer5?: T;
+              text1?: T;
+              title1?: T;
+              description1?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
 }

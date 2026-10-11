@@ -10,6 +10,8 @@ import { Users } from "./collections/Users";
 import { Companies } from "./collections/Companies";
 import { Media } from "./collections/Media";
 import { Folders } from "./collections/Folders";
+import { SiteSettings } from "./collections/SiteSettings";
+import { SiteSections } from "./collections/SiteSections";
 import { News } from "./collections/News";
 
 const filename = fileURLToPath(import.meta.url);
@@ -31,7 +33,7 @@ export default buildConfig({
       },
     },
   },
-  collections: [Users, Companies, Media, Folders, News],
+  collections: [Users, Companies, Media, Folders, News, SiteSections, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

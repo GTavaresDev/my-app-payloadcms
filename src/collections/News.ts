@@ -1,3 +1,4 @@
+import { superAdmin } from '../access/tenant'
 import type { CollectionConfig } from 'payload'
 
 const getCompanyId = (user: any) => {
@@ -7,24 +8,6 @@ const getCompanyId = (user: any) => {
 
 const isSuperAdmin = (user: any) => Boolean(user?.roles?.includes('super-admin'))
 
-const canAccessByCompany = ({ req: { user } }: { req: { user?: any } }) => {
-  // Leitura pública permitida para os portais/blogs
-  if (!user) return true
-
-  // Super Admin vê todas as notícias
-  if (isSuperAdmin(user)) return true
-
-  // Usuário comum autenticado só vê notícias da sua empresa
-  const companyId = getCompanyId(user)
-  if (!companyId) return false
-
-  return {
-    company: {
-      equals: companyId,
-    },
-  }
-}
-
 export const News: CollectionConfig = {
   slug: 'news',
   labels: {
@@ -33,33 +16,9 @@ export const News: CollectionConfig = {
   },
   admin: {
     group: 'Coleções',
+    hidden: true,
   },
-  access: {
-    read: canAccessByCompany,
-    update: ({ req: { user } }: { req: { user?: any } }) => {
-      if (!user) return false
-      if (isSuperAdmin(user)) return true
-      const companyId = getCompanyId(user)
-      if (!companyId) return false
-      return {
-        company: {
-          equals: companyId,
-        },
-      }
-    },
-    delete: ({ req: { user } }: { req: { user?: any } }) => {
-      if (!user) return false
-      if (isSuperAdmin(user)) return true
-      const companyId = getCompanyId(user)
-      if (!companyId) return false
-      return {
-        company: {
-          equals: companyId,
-        },
-      }
-    },
-    create: ({ req: { user } }: { req: { user?: any } }) => Boolean(user?.company || isSuperAdmin(user)),
-  },
+  access: { read: superAdmin, create: superAdmin, update: superAdmin, delete: superAdmin },
   hooks: {
     beforeChange: [
       ({ req, data, operation }: any) => {
