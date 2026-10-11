@@ -1,11 +1,15 @@
 import type { Access, FieldAccess } from "payload";
+import type { User } from "../payload-types";
 
-export type UserLike = {
-  id?: number | string;
-  company?: (number | null) | { id?: number | string; slug?: string } | null;
-  roles?: ('super-admin' | 'company-admin' | 'user' | string)[] | null;
-  [key: string]: unknown;
-} | null | undefined;
+export type UserLike =
+  | User
+  | {
+      id?: number | string;
+      company?: (number | null) | { id?: number | string; slug?: string } | null;
+      roles?: ('super-admin' | 'company-admin' | 'user' | string)[] | null;
+    }
+  | null
+  | undefined;
 
 export const companyID = (user: UserLike) =>
   typeof user?.company === "object" ? user.company?.id : user?.company;
