@@ -1,8 +1,15 @@
-import type { Access, FieldAccess, User } from "payload";
+import type { Access, FieldAccess } from "payload";
 
-export const companyID = (user: User | null | undefined) =>
+export type UserLike = {
+  id?: number | string;
+  company?: (number | null) | { id?: number | string; slug?: string } | null;
+  roles?: ('super-admin' | 'company-admin' | 'user' | string)[] | null;
+  [key: string]: unknown;
+} | null | undefined;
+
+export const companyID = (user: UserLike) =>
   typeof user?.company === "object" ? user.company?.id : user?.company;
-export const isSuperAdmin = (user: User | null | undefined) =>
+export const isSuperAdmin = (user: UserLike) =>
   Boolean(user?.roles?.includes("super-admin"));
 export const superAdmin: Access = ({ req }) => isSuperAdmin(req.user);
 export const superAdminField: FieldAccess = ({ req }) => isSuperAdmin(req.user);
