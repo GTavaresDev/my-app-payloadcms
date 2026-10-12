@@ -1,6 +1,6 @@
 import { companyID, isSuperAdmin } from '../access/tenant'
 import type { CollectionConfig } from 'payload'
-import { superAdminField } from '../access/tenant'
+import { superAdmin, superAdminField } from '../access/tenant'
 import { createCompanyToken } from '../access/company-token'
 
 export const Companies: CollectionConfig = {
@@ -21,9 +21,9 @@ export const Companies: CollectionConfig = {
       const id = companyID(user)
       return id ? { id: { equals: id } } : false
     },
-    create: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
-    update: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
-    delete: ({ req: { user } }) => Boolean(user?.roles?.includes('super-admin')),
+    create: superAdmin,
+    update: superAdmin,
+    delete: superAdmin,
   },
   hooks: {
     beforeValidate: [({ data, originalDoc, operation }) => {

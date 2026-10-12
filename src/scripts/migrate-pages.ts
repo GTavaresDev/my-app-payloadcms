@@ -1,13 +1,10 @@
 import pg from 'pg'
-import { PgDialect } from 'drizzle-orm/pg-core'
-import type { SQL } from 'drizzle-orm'
-import type { MigrateUpArgs } from '@payloadcms/db-postgres'
+import { runMigration } from './migration-runner'
 import { migrations } from '../migrations'
 import snapshot from '../migrations/20261011_154045_site_pages.json'
 
 // Additive transition for an existing database, including dev schema-push installs.
 const db = new pg.Client({ connectionString: process.env.DATABASE_URL })
-const dialect = new PgDialect()
 try {
   await db.connect()
   await db.query('BEGIN')
@@ -16,14 +13,7 @@ try {
     "SELECT to_regclass('public.site_settings') AS table_name",
   )
   if (!exists.rows[0].table_name) {
-    await migrations[0].up({
-      db: {
-        execute: async (statement: SQL) => {
-          const query = dialect.sqlToQuery(statement)
-          return db.query(query.sql, query.params)
-        },
-      },
-    } as unknown as MigrateUpArgs)
+    await runMigration(db, migrations[0].up)
   }
   const columns = await db.query(
     "SELECT column_name FROM information_schema.columns WHERE table_schema='public' AND table_name='site_settings'",

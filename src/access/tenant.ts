@@ -1,3 +1,4 @@
+import { relationshipID } from '../utilities/relationship-id'
 import type { Access, FieldAccess } from "payload";
 import type { User } from "../payload-types";
 
@@ -12,7 +13,7 @@ export type UserLike =
   | undefined;
 
 export const companyID = (user: UserLike) =>
-  typeof user?.company === "object" ? user.company?.id : user?.company;
+  relationshipID(user?.company);
 export const isSuperAdmin = (user: UserLike) =>
   Boolean(user?.roles?.includes("super-admin"));
 export const superAdmin: Access = ({ req }) => isSuperAdmin(req.user);

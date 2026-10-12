@@ -9,7 +9,7 @@ import { pt } from "@payloadcms/translations/languages/pt";
 import { Users } from "./collections/Users";
 import { Companies } from "./collections/Companies";
 import { Media } from "./collections/Media";
-import { SiteSettings } from "./collections/SiteSettings";
+import { SiteComponents } from "./collections/SiteComponents";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -31,7 +31,7 @@ export default buildConfig({
       beforeDashboard: ['/components/BeforeDashboard#BeforeDashboard'],
     },
   },
-  collections: [Users, Companies, Media, SiteSettings],
+  collections: [Users, Companies, Media, SiteComponents],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

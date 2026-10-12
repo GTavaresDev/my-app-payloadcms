@@ -1,3 +1,4 @@
+import { relationshipID } from '../utilities/relationship-id'
 import React from 'react'
 import type { ServerProps } from 'payload'
 
@@ -9,7 +10,7 @@ export async function BeforeDashboard({ user, payload }: ServerProps) {
       companyName = String(user.company.name)
     } else {
       try {
-        const id = typeof user.company === 'object' ? user.company.id : user.company
+        const id = relationshipID(user.company)
         if (id) {
           const company = await payload.findByID({
             collection: 'companies',

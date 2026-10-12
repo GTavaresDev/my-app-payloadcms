@@ -1,3 +1,4 @@
+import { relationshipID } from '../utilities/relationship-id'
 import { APIError, type Access, type CollectionConfig, type Where } from 'payload'
 import { companyID, isSuperAdmin, superAdmin, superAdminField } from '../access/tenant'
 
@@ -37,7 +38,7 @@ export const Users: CollectionConfig = {
         // Server-owned values override even a forged API request.
         return { ...data, company, roles: ['user'] }
       }
-      const targetCompany = typeof originalDoc?.company === 'object' ? originalDoc.company?.id : originalDoc?.company
+      const targetCompany = relationshipID(originalDoc?.company)
       if (targetCompany !== company || isSuperAdmin(originalDoc)) {
         throw new APIError('Você só pode gerenciar usuários comuns da sua empresa.', 403)
       }
