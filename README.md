@@ -1,104 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Payload CMS central
 
-## Getting Started
+CMS multi-tenant para Localize e Rastrear, com PostgreSQL, painel em português e conteúdo organizado por empresa → página/rota → componentes → textos e imagens.
 
-First, run the development server:
+## Ambiente e execução
 
-```bash
+Configure `DATABASE_URL` e `PAYLOAD_SECRET` na `.env` privada; não versionar valores reais.
+
+```sh
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O painel local fica em `http://localhost:3000/admin`. Esse endereço é apenas de desenvolvimento.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Coleções e permissões
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+As coleções registradas são `companies`, `users`, `media` e `site-settings`. Mídias ficam ocultas no menu e são utilizadas pelos campos de upload. Notícias, pastas e `site-sections` não estão registrados no schema atual; tabelas antigas eventualmente preservadas no banco não são fonte de conteúdo.
 
-## Learn More
+Usuários de empresa editam apenas suas páginas e gerenciam usuários comuns da mesma empresa. Não veem nem atribuem níveis de permissão. Empresa e permissões dos usuários criados são impostas pelo servidor. Apenas o administrador geral cria/exclui páginas, escolhe empresas e níveis de usuários e consulta os tokens das empresas.
 
-To learn more about Next.js, take a look at the following resources:
+`site-settings` exige sessão autorizada ou token de empresa para leitura. O token restringe a consulta à empresa no servidor. As mídias publicadas continuam públicas para exibição no navegador.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Páginas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Localize `/`: sete componentes da Página inicial.
+- Rastrear `/`: apresentação, funcionalidades, depoimento e FAQ.
+- Rastrear `/logistica`: Torre de controle e Galeria operacional.
 
-## Deploy on Vercel
+A lista de rotas usa pastas para todas as empresas; a navegação interna por pastas de componentes está implementada para a Localize. O manifesto fica em `src/companys/<empresa>/`, com agregadores em `src/companys/`. Novas rotas precisam ser implementadas também no Next.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tokens
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ao criar uma empresa, o servidor gera `cmp_` + 32 bytes aleatórios em hexadecimal (256 bits), com `node:crypto`. Não é MD5 nem um hash do slug. O token possui índice único, é imutável pela edição normal e só é exposto ao administrador geral. Fica armazenado em texto para permitir sua consulta posterior.
 
-## Configurações do site por página
+Cada site configura `PAYLOAD_URL` e `COMPANY_TOKEN` privados e envia o token em `Authorization: Bearer …`. Não há filtro por `COMPANY_SLUG` nas consultas dos sites.
 
-Cada registro de `site-settings` representa uma página da empresa, com grupos
-fixos para seus componentes. O usuário edita somente os textos e imagens desses
-grupos, sem criar, reordenar ou mover componentes entre páginas.
+## Banco existente e seed
 
-- Localize → Página inicial (`/`): apresentação principal, contato, benefícios,
-  recursos em destaque, indicadores, cartões de funcionalidades e chamada para ação.
-- Rastrear → Página inicial (`/`): apresentação principal, funcionalidades,
-  depoimento e perguntas frequentes.
-- Rastrear → Logística (`/logistica`): torre de controle e galeria operacional.
-
-O mapeamento de páginas, rotas e componentes fica em `src/companys/`.
-Novas páginas ou empresas devem ter seus componentes mapeados pelo desenvolvedor.
-
-### Migração do banco existente
-
-Configure `DATABASE_URL` e `PAYLOAD_SECRET` no admin e execute, nesta ordem:
+A transição pressupõe as tabelas de base já existentes. Execute explicitamente no ambiente apropriado:
 
 ```sh
 npm run migrate:pages
 npm run seed:pages
+npm run configure:tokens
 ```
 
-`migrate:pages` adiciona a estrutura de páginas de forma transacional e registra
-seu histórico. Também aceita ambientes em que o modo de desenvolvimento já
-criou a tabela via schema push, verificando colunas e o índice único antes de
-registrar a migração. Não remove tabelas ou conteúdo existentes. A migração
-padrão equivalente está em `src/migrations` para ambientes que já usam o CLI.
-Esta transição pressupõe o banco existente com as coleções anteriores.
+`migrate:pages` prepara a estrutura de páginas de forma aditiva e verifica ambientes com schema push. `seed:pages` inicializa campos ausentes a partir do manifesto e das imagens de `src/companys/assets`, preservando valores existentes, inclusive vazios e nulos. Não cria usuários. `seed:home` é um alias.
 
-`seed:pages` copia os 13 componentes existentes para as três páginas,
-preservando textos, referências de mídia, valores vazios e nulos. Reexecutar não
-sobrescreve edições feitas nas páginas. Para uma instalação sem conteúdo legado,
-usam-se os textos iniciais e as imagens de `src/companys/assets`. `seed:home`
-permanece como alias do mesmo importador. Não são criados usuários.
+A cópia de conteúdo legado foi feita na transição anterior; o seed atual não consulta `site-sections`. Não usar o seed como recuperação automática dessas tabelas.
 
-Os documentos antigos de `site-sections` permanecem ocultos e acessíveis apenas
-ao administrador geral, para recuperação e conferência da transição. Os sites
-consomem exclusivamente os novos documentos de página em `site-settings`.
+`configure:tokens` preenche tokens ausentes, registra a migração e atualiza `.env.local` dos dois sites neste workspace, sem imprimir segredos ou rotacionar tokens existentes. Em deploys separados, configure os tokens nas envs privadas do provedor. As migrações também estão em `src/migrations` para instalações que utilizam o CLI padrão; revise o histórico antes de escolher o fluxo.
 
-### Frontends
+## Integração e produção
 
-Configure `PAYLOAD_URL` e o `COMPANY_SLUG` correspondente em cada projeto.
-A página inicial chama `getHomeData()` uma vez; a rota `/logistica` do Rastrear
-chama `getLogisticsData()` uma vez. Cada busca filtra empresa e página, carrega
-um único registro com suas mídias e distribui os componentes por props.
-O cache revalida a cada 60 segundos. Não há textos ou imagens locais de fallback.
-Campos vazios permanecem vazios; imagens sem URL e componentes ausentes não são
-renderizados. Uma falha na API resulta em um mapa vazio para a página.
+Cada rota busca uma vez e distribui dados por props, com mídias populadas e revalidação de 60 segundos. Não existem textos ou imagens editoriais locais de fallback. Conteúdo ausente não implica necessariamente ocultar toda a seção; depende do componente.
 
-Após alterações no schema, `npm run generate:types` gera os tipos do admin e os
-sincroniza nos dois sites. `npm run test:content` verifica isolamento por empresa,
-proteção da estrutura, associação de mídia, preservação da migração, idempotência,
-filtros e busca única por rota, além das permissões de gerenciamento de usuários.
+Os sites exigem URL do CMS em produção, centralizam sua resolução e corrigem mídias locais quando configurados para um CMS remoto. Configure envs antes do build e faça novo deploy após mudanças. Os uploads ficam em `public/media`; a persistência de arquivos no provedor precisa ser garantida pela infraestrutura.
 
-### Painel e permissões
+## Tipos e validação
 
-Usuários das empresas veem **Configurações do site** e **Usuários**. Mídias são
-selecionadas ou enviadas dentro do próprio componente; o armazenamento técnico
-permanece oculto. Pastas, notícias e componentes legados não aparecem no painel
-das empresas. Empresas e permissões são administradas pelo administrador geral.
-Novos usuários criados por uma empresa recebem automaticamente a mesma empresa
-e a permissão padrão, sem poder atribuir níveis de acesso.
+```sh
+npm run generate:types
+npm run test:content
+npx tsc --noEmit
+npm run build -- --webpack
+```
 
-O painel usa português do Brasil. Os identificadores internos da API permanecem
-estáveis; nomes de páginas, componentes e campos são apresentados em português.
+A geração sincroniza interfaces para os dois frontends. A suíte cobre isolamento, campos protegidos, mídia, seed idempotente, busca única, campos vazios, tokens e URLs de produção. Confira também o painel e as rotas no navegador.
