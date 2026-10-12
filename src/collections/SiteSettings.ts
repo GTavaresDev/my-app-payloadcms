@@ -94,10 +94,7 @@ export const SiteSettings: CollectionConfig = {
       type: 'group',
       fields: sections.map((section) => ({
         name: section.variant,
-        label:
-          section.variant === 'rasGallery'
-            ? 'Galeria operacional'
-            : section.label,
+        label: section.label,
         type: 'group',
         admin: {
           condition: (data) =>

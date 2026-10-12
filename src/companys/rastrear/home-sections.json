@@ -578,7 +578,7 @@
     "company": "rastrear",
     "key": "gallery",
     "variant": "rasGallery",
-    "label": "Galeria de imagens",
+    "label": "Galeria operacional",
     "fields": [
       {
         "name": "text1",

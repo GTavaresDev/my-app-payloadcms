@@ -29,6 +29,13 @@ Usuários de empresa editam apenas suas páginas e gerenciam usuários comuns da
 
 A lista de rotas usa pastas para todas as empresas; a navegação interna por pastas de componentes está implementada para a Localize. O manifesto fica em `src/companys/<empresa>/`, com agregadores em `src/companys/`. Novas rotas precisam ser implementadas também no Next.
 
+
+### Fonte única das definições
+
+Altere campos e rótulos somente em `src/companys/localize/home-sections.json` ou `src/companys/rastrear/home-sections.json`, conforme a empresa. `src/companys/home-sections.ts` apenas reúne esses manifestos e não contém cópias das definições. Painel, navegação e seed consomem esse agregador. O administrador geral continua acessando todas as empresas, independentemente da organização dos arquivos.
+
+As definições no código determinam os campos e rótulos do painel após recompilar/reiniciar o CMS. Os valores editados no painel ficam no banco. Alterar `defaultValue` não sobrescreve valores existentes: o seed preenche somente campos ausentes. Mudanças de estrutura exigem revisar migrações e regenerar os tipos; mudanças apenas de rótulo não exigem migrar conteúdo.
+
 ## Tokens
 
 Ao criar uma empresa, o servidor gera `cmp_` + 32 bytes aleatórios em hexadecimal (256 bits), com `node:crypto`. Não é MD5 nem um hash do slug. O token possui índice único, é imutável pela edição normal e só é exposto ao administrador geral. Fica armazenado em texto para permitir sua consulta posterior.
